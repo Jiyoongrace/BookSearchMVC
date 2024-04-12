@@ -10,7 +10,7 @@
 - 이렇게 각 계층은 자신의 역할에 집중하며, 시스템을 구조화하여 유지보수와 확장을 용이하게 한다.
 - 변경이 필요한 경우 한 계층만 수정하면 되므로 시스템의 유연성이 향상된다.
 
-![Untitled (21)](https://github.com/Jiyoongrace/BookSearchMVC/assets/88182667/0c6f9d75-570a-4eac-8a27-c49ea729181f)
+<img src="https://github.com/Jiyoongrace/BookSearchMVC/assets/88182667/0c6f9d75-570a-4eac-8a27-c49ea729181f.png" width="420" height="280"/>
 
 - Presentation Layer : 사용자 인터페이스(UI), HTML, CSS, JavaScript
     - 화면을 만들어주는 Class ⇒ View 라고 한다.
@@ -21,12 +21,16 @@
 - Database Layer : 실제 데이터를 저장하고 관리, 데이터베이스 관리 시스템(DBMS)
     - MySQL, Oracle
 
+<br>
+
 ## 2. MVC Pattern
 
 - MVC는 소프트웨어 시스템을 3가지 타입의 component로 분할해서 개발하는 소프트웨어 개발 패턴.
 - Model(M) - Service (Model), Domain Model(VO)
 - View(V) - 사용자 interface 담당
 - Controller(C) - 시스템 흐름제어(View와 Service 간의 Bridge)
+
+<br>
 
 ## 3. 도서 검색 프로그램을 MVC 형태로 구현
 
