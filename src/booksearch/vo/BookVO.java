@@ -1,6 +1,8 @@
 package booksearch.vo;
 
 public class BookVO {
+    // private field로 table의 모든 column을 선언
+    // field명은 table column의 이름과 동일하게 선언
     private String bisbn;
     private String btitle;
     private int bprice;

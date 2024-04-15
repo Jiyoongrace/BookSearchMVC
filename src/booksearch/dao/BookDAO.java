@@ -4,16 +4,24 @@ import booksearch.vo.BookVO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.security.spec.ECField;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+// 1. Driver Loading
+// 2. Connection 획득
+// 3. Statement 생성(SQL Query 작성)
+// 4. 실행 후 결과 가져오기
+// 5. 결과 처리
+// 6. 자원 반납(close 처리)
 public class BookDAO {
     private Connection con;
     public BookDAO() {
         // JDBC Driver Loading
         try {
+            // Connection을 얻어온다.
             Class.forName("com.mysql.cj.jdbc.Driver");
             String id = "root";
             String pw = "jiyun9163!";
@@ -26,15 +34,19 @@ public class BookDAO {
 
     public ObservableList<BookVO> select(String keyword) {
         // IN Parameter를 이용해서 PreparedStatement를 생성한다.
+        // PreparedStatement는 SQL을 가지고 statement를 생성하는 것을 말한다.
         String sql = "SELECT bisbn, btitle, bprice, bauthor FROM book " + "WHERE btitle Like ?";
         ObservableList<BookVO> data = FXCollections.observableArrayList();
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
         try {
-            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt = con.prepareStatement(sql);
             // 당연히 In Parameter를 채워줘야 실행이 가능하다.
             pstmt.setString(1, "%" + keyword + "%");
-            ResultSet rs = pstmt.executeQuery();
+            // 실행
+            rs = pstmt.executeQuery();
 
-
+            // 결과 처리
             // rs는 결과 레코드 집합의 포인터이다. 이것을 움직여서 우리가 select한 결과를 얻는다.
             while (rs.next()) { // 계속해서 내려간다.
                 BookVO book = new BookVO(
@@ -46,6 +58,16 @@ public class BookDAO {
             }
 
         } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            // 자원 반납 코드
+            try {
+                rs.close();
+                pstmt.close();
+                con.close();
+            } catch (Exception e2) {
+                System.out.println(e2);
+            }
 
         }
         return data;
